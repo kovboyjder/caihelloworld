@@ -1,12 +1,43 @@
-const http = require('http');
-const port = process.env.PORT || 3000
+const express = require('express')
+const bodyParser = require('body-parser')
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html');
-  res.end('<h1>Hello World</h1>');
-});
+const app = express() 
+const port = 3000 
+app.use(bodyParser.json()) 
 
-server.listen(port,() => {
-  console.log(`Server running at port `+port);
-});
+app.post('/', (req, res) => {
+  console.log(req.body)
+
+  res.send({
+    replies: [{
+      type: 'text',
+      content: 'Roger that',
+    }], 
+    conversation: {
+      memory: { key: 'value' }
+    }
+  })
+})
+
+app.get('/', (req, res) => {
+  console.log(req.body)
+
+  res.send({
+    replies: [{
+      type: 'text',
+      content: 'Roger that',
+    }], 
+    conversation: {
+      memory: { key: 'value' }
+    }
+  })
+})
+
+app.post('/errors', (req, res) => {
+  console.log(req.body) 
+  res.send() 
+}) 
+
+app.listen(port, () => { 
+  console.log('Server is running on port 5000') 
+})
